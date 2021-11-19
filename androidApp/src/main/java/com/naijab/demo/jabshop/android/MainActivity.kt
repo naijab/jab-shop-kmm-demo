@@ -2,12 +2,8 @@ package com.naijab.demo.jabshop.android
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.naijab.demo.jabshop.Greeting
 import android.widget.TextView
-
-fun greet(): String {
-    return Greeting().greeting()
-}
+import com.naijab.demo.jabshop.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,6 +11,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val tv: TextView = findViewById(R.id.text_view)
-        tv.text = greet()
+        ProductAPI().getProducts(
+            success = {
+                println("Product API -> $it")
+            },
+            failure = {
+                println("Product API Error -> $it")
+            }
+        )
     }
 }
