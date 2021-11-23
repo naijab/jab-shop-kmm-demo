@@ -1,44 +1,29 @@
 import SwiftUI
 import shared
 
-class ViewModel : ObservableObject{
-    @Published var products: [Product] = []
-    @Published var isLoading: Bool = false
-    @Published var isError: Bool = false
-
-    init() {
-        getProducts()
-    }
-
-    func getProducts() -> Void {
-        isLoading = true
-        
-        ProductAPI().getProducts (
-            success: {  [weak self] (result) in
-                self?.products = result
-                self?.isError = false
-                self?.isLoading = false
-            },
-            failure: { [weak self] (error) in
-                self?.isError = true
-                self?.isLoading = false
-             }
-        )
-    }
-}
-
 struct ContentView: View {
-
+    
     @ObservedObject
-    var viewModel = ViewModel()
+    var productController = ProductController()
+    
+    init() {
+        productController.interactor.getALLProduct()
+    }
 
 	var body: some View {
-        if viewModel.isLoading {
+        if productController.isLoading {
             ProgressView()
         }
         
-        if viewModel.products.count > 0 {
-            List(viewModel.products, id: \.id) { product in
+        if let errorMessage = productController.errorMessage {
+            Text("Error: \(errorMessage)").foregroundColor(.red)
+            Button("Try Again") {
+                productController.interactor.getALLProduct()
+            }.padding()
+        }
+        
+        if productController.products.count > 0 {
+            List(productController.products, id: \.id) { product in
                 VStack(alignment: .leading) {
                     if #available(iOS 15.0, *) {
                         AsyncImage(
@@ -51,7 +36,7 @@ struct ContentView: View {
                             placeholder: {
                             ProgressView()
                         })
-                
+
                     }
                     Text(product.title)
                         .font(.headline)
