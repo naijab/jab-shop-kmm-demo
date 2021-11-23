@@ -1,4 +1,4 @@
-package com.naijab.demo.jabshop
+package com.naijab.demo.jabshop.product
 
 interface ProductPresentLogic {
     fun presentAllProduct(products: List<Product>)

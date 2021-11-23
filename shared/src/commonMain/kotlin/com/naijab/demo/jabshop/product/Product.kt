@@ -1,4 +1,4 @@
-package com.naijab.demo.jabshop
+package com.naijab.demo.jabshop.product
 
 import kotlinx.serialization.*
 

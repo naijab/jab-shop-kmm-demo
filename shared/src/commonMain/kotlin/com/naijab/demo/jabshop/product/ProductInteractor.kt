@@ -1,10 +1,12 @@
-package com.naijab.demo.jabshop
+package com.naijab.demo.jabshop.product
 
 interface ProductBusinessLogic {
     fun getALLProduct()
 }
 
-class ProductInteractor(private val presenter: ProductPresentLogic, private val worker: ProductAPI): ProductBusinessLogic {
+class ProductInteractor(private val presenter: ProductPresentLogic,
+                        private val worker: ProductAPI):
+    ProductBusinessLogic {
 
     override fun getALLProduct() {
         presenter.presentLoading()
