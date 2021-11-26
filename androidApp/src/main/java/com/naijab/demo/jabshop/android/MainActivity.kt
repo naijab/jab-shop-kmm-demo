@@ -3,7 +3,7 @@ package com.naijab.demo.jabshop.android
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import com.naijab.demo.jabshop.*
+import com.naijab.demo.jabshop.product.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
